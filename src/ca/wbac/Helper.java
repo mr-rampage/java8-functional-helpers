@@ -33,4 +33,9 @@ public class Helper {
 					 .collect(Collectors.toList());
 	}
 
+	public <E, T> Function<E, Boolean> checker(@SuppressWarnings("unchecked") Predicate<E>... validators) {
+		return obj -> Arrays.stream(validators)
+							.map(cond -> cond.test(obj) )
+							.allMatch(Predicate.isEqual(Boolean.TRUE));
+	}
 }

@@ -2,6 +2,7 @@ package ca.wbac;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -38,4 +39,11 @@ public class Helper {
 							.map(cond -> cond.test(obj) )
 							.allMatch(Predicate.isEqual(Boolean.TRUE));
 	}
+	
+	public <T, K> void process(T value, Predicate<T> checker, Function<T, K> transformer, Consumer<K> consumer) {
+		if (checker.test(value)) {
+			consumer.accept(transformer.apply(value));
+		}
+	}
+	
 }
